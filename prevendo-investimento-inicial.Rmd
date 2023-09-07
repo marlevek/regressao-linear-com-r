@@ -1,0 +1,55 @@
+
+*REGRESSÃO LINEAR - prevendo investiento inicial de uma franquia*
+
+
+```{r}
+library(corrgram)
+```
+
+
+
+Importando os dados
+```{r}
+dados = read.csv('slr12.csv', sep = ';')
+head(dados)
+```
+
+
+Modelo
+```{r}
+modelo = lm(CusInic ~ FrqAnual, data = dados)
+modelo
+```
+
+Correlação
+```{r}
+cor(dados)
+```
+
+Diagrama correlação
+```{r}
+cor(dados)
+corrgram(dados, order=T, lower.panel=panel.shade, upper.panel=panel.pie, text.panel=panel.txt, main='')
+```
+
+A cor azul clara indica que é uma correlação positiva de fraca a moderada entre os atributos.
+
+
+Plotar correlação
+```{r}
+plot(CusInic ~ FrqAnual, data = dados )
+abline(modelo)
+```
+
+Usar o modelo criado
+Valor anual da franquia = 1350
+```{r}
+valor = 1350L
+
+# Prevendo o custo inicial
+prev = predict(modelo, data.frame(FrqAnual = valor))
+prev = paste0("Previsão de custo incial R$: ", round(prev, 2))
+print(prev)
+```
+
+
